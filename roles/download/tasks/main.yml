@@ -9,7 +9,7 @@
 - name: Create dest directories
   file: path={{local_release_dir}}/{{download.dest|dirname}} state=directory recurse=yes
   when: "{{ download.enabled|bool }}"
-  run_once: "{{ download_run_once|bool }}"
+#  run_once: "{{ download_run_once|bool }}"
 
 - name: Download items
   get_url:
@@ -19,7 +19,7 @@
     owner: "{{ download.owner|default(omit) }}"
     mode: "{{ download.mode|default(omit) }}"
   when: "{{ download.enabled|bool }}"
-  run_once: "{{ download_run_once|bool }}"
+#  run_once: "{{ download_run_once|bool }}"
 
 - name: Extract archives
   unarchive:
@@ -29,7 +29,7 @@
     mode: "{{ download.mode|default(omit) }}"
     copy: no
   when: "{{ download.enabled|bool }} and ({{download.unarchive is defined and download.unarchive == True}})"
-  run_once: "{{ download_run_once|bool }}"
+#  run_once: "{{ download_run_once|bool }}"
 
 - name: Fix permissions
   file:
@@ -38,4 +38,4 @@
     owner: "{{ download.owner|default(omit) }}"
     mode: "{{ download.mode|default(omit) }}"
   when: "{{ download.enabled|bool }} and ({{download.unarchive is not defined or download.unarchive == False}})"
-  run_once: "{{ download_run_once|bool }}"
+#  run_once: "{{ download_run_once|bool }}"
